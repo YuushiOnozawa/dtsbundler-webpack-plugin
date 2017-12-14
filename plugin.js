@@ -36,7 +36,7 @@ var DeclarationBundlerPlugin = (function () {
         var declarations = '';
         for (var fileName in declarationFiles) {
             var declarationFile = declarationFiles[fileName];
-            var data = declarationFile.source();
+            var data = declarationFile._value || declarationFile.source();
             var lines = data.split("\n");
             var i = lines.length;
             while (i--) {
