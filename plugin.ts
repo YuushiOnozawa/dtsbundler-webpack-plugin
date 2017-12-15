@@ -3,12 +3,14 @@ class DtsBundlerPlugin
 	out:string;
 	moduleName:string;
 	mode:string;
+  excludedReferences: Array<any>;
 
 	constructor(options:any={})
 	{
 		this.out = options.out ? options.out : './build/';
 		this.excludedReferences = options.excludedReferences ? options.excludedReferences : undefined;
 	}
+
 
 	apply(compiler)
 	{

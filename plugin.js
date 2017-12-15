@@ -1,10 +1,11 @@
-var DeclarationBundlerPlugin = (function () {
-    function DeclarationBundlerPlugin(options) {
+"use strict";
+var DtsBundlerPlugin = (function () {
+    function DtsBundlerPlugin(options) {
         if (options === void 0) { options = {}; }
         this.out = options.out ? options.out : './build/';
         this.excludedReferences = options.excludedReferences ? options.excludedReferences : undefined;
     }
-    DeclarationBundlerPlugin.prototype.apply = function (compiler) {
+    DtsBundlerPlugin.prototype.apply = function (compiler) {
         var _this = this;
         //when the compiler is ready to emit files
         compiler.plugin('emit', function (compilation, callback) {
@@ -32,7 +33,7 @@ var DeclarationBundlerPlugin = (function () {
             callback();
         });
     };
-    DeclarationBundlerPlugin.prototype.generateCombinedDeclaration = function (declarationFiles) {
+    DtsBundlerPlugin.prototype.generateCombinedDeclaration = function (declarationFiles) {
         var declarations = '';
         for (var fileName in declarationFiles) {
             var declarationFile = declarationFiles[fileName];
@@ -57,8 +58,9 @@ var DeclarationBundlerPlugin = (function () {
             }
             declarations += lines.join("\n") + "\n\n";
         }
-        return declarations;
+        var output = "declare module " + this.moduleName + "\n{\n" + declarations + "}";
+        return output;
     };
-    return DeclarationBundlerPlugin;
-})();
-module.exports = DeclarationBundlerPlugin;
+    return DtsBundlerPlugin;
+}());
+module.exports = DtsBundlerPlugin;
